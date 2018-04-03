@@ -23,8 +23,9 @@ class Deck extends Component {
     const { position } = this.state;
     // NOTE: Interpolation system allows us to relate one set of values or one scale of values to another set of values.
     //   In the following case, -500 is related to -120deg, for instance.
+    // NOTE: The magnification, 1.5, is arbitrary. So you can change it as you like.
     const rotate = position.x.interpolate({
-      inputRange: [-SCREEN_WIDTH, 0, SCREEN_WIDTH],
+      inputRange: [-SCREEN_WIDTH * 1.5, 0, SCREEN_WIDTH * 1.5],
       outputRange: ['-120deg', '0deg', '120deg']
     });
 
