@@ -17,13 +17,28 @@ class Deck extends Component {
     this.state = { panResponder, position };
   }
 
+  getCardStyle() {
+    const { position } = this.state;
+    // NOTE: Interpolation system allows us to relate one set of values or one scale of values to another set of values.
+    //   In the following case, -500 is related to -120deg, for instance.
+    const rotate = position.x.interpolate({
+      inputRange: [-500, 0, 500],
+      outputRange: ['-120deg', '0deg', '120deg']
+    });
+
+    return {
+      ...position.getLayout(),
+      transform: [{ rotate }]
+    };
+  }
+
   renderCards() {
     return this.props.data.map((item, index) => {
       if (index === 0) {
         return(
           <Animated.View
             key={item.id}
-            style={this.state.position.getLayout()}
+            style={this.getCardStyle()}
             {...this.state.panResponder.panHandlers}
           >
             {this.props.renderCard(item)}
